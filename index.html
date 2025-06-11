@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commande Kòkòlò Lòv</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .category {
+      margin-top: 30px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    .total {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Commande Kòkòlò Lòv</h1>
+
+  <div class="category">
+    <h2>Cocktails (Avec Alcool)</h2>
+    <div class="item"><span>Kòkòlò Lòv</span><input type="number" data-price="15" value="0"/></div>
+    <div class="item"><span>1 Carreau</span><input type="number" data-price="15" value="0"/></div>
+    <div class="item"><span>Lanmou</span><input type="number" data-price="15" value="0"/></div>
+    <div class="item"><span>Zouk Love</span><input type="number" data-price="15" value="0"/></div>
+  </div>
+
+  <div class="category">
+    <h2>Cocktails (Sans Alcool)</h2>
+    <div class="item"><span>Kòkòlò Lòv</span><input type="number" data-price="10" value="0"/></div>
+    <div class="item"><span>1 Carreau</span><input type="number" data-price="10" value="0"/></div>
+    <div class="item"><span>Lanmou</span><input type="number" data-price="10" value="0"/></div>
+    <div class="item"><span>Zouk Love</span><input type="number" data-price="10" value="0"/></div>
+  </div>
+
+  <div class="category">
+    <h2>Boissons</h2>
+    <div class="item"><span>Red Bull / XL / Ginger Beer / Schweppes</span><input type="number" data-price="5" value="0"/></div>
+    <div class="item"><span>Coca / Sprite / Ordinaire</span><input type="number" data-price="4" value="0"/></div>
+    <div class="item"><span>Perrier</span><input type="number" data-price="4" value="0"/></div>
+    <div class="item"><span>Capès</span><input type="number" data-price="3" value="0"/></div>
+    <div class="item"><span>Jus (Orange / Goyave / Passion)</span><input type="number" data-price="3" value="0"/></div>
+    <div class="item"><span>Expresso ou Allongé</span><input type="number" data-price="3" value="0"/></div>
+  </div>
+
+  <div class="category">
+    <h2>Champagne / Alcools</h2>
+    <div class="item"><span>Veuve Clicquot</span><input type="number" data-price="120" value="0"/></div>
+    <div class="item"><span>Moët Brut</span><input type="number" data-price="100" value="0"/></div>
+    <div class="item"><span>Nicolas Feuillate Demi Sec</span><input type="number" data-price="90" value="0"/></div>
+    <div class="item"><span>Nicolas Feuillate Brut</span><input type="number" data-price="90" value="0"/></div>
+    <div class="item"><span>Martel (coupe)</span><input type="number" data-price="12" value="0"/></div>
+    <div class="item"><span>Hennessy / Johnny Walker</span><input type="number" data-price="100" value="0"/></div>
+    <div class="item"><span>JB / Gin Gordon / Vodka Smirnoff / Rhum vieux Montebello</span><input type="number" data-price="90" value="0"/></div>
+    <div class="item"><span>Ti-Punch</span><input type="number" data-price="6" value="0"/></div>
+    <div class="item"><span>Cognac (Hennessy)</span><input type="number" data-price="12" value="0"/></div>
+    <div class="item"><span>Whisky (JB) / Vodka / Rhum vieux / Gin</span><input type="number" data-price="10" value="0"/></div>
+  </div>
+
+  <div class="category">
+    <h2>Snacks & Box</h2>
+    <div class="item"><span>Glace</span><input type="number" data-price="3" value="0"/></div>
+    <div class="item"><span>Nems (5 pièces)</span><input type="number" data-price="7" value="0"/></div>
+    <div class="item"><span>Samoussa Légumes (5 pièces)</span><input type="number" data-price="7" value="0"/></div>
+    <div class="item"><span>Beignets de crevettes (5 pièces)</span><input type="number" data-price="8" value="0"/></div>
+    <div class="item"><span>Croustille de poulet (6 pièces)</span><input type="number" data-price="8" value="0"/></div>
+    <div class="item"><span>Assiette dégustation (12 pièces)</span><input type="number" data-price="15" value="0"/></div>
+    <div class="item"><span>Riz / Poulet + glace</span><input type="number" data-price="15" value="0"/></div>
+    <div class="item"><span>Riz / Poisson + glace</span><input type="number" data-price="15" value="0"/></div>
+  </div>
+
+  <div class="total" id="total">Total : 0 €</div>
+
+  <script>
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('input', () => {
+        let total = 0;
+        document.querySelectorAll('input[type="number"]').forEach(el => {
+          const qty = parseInt(el.value) || 0;
+          const price = parseFloat(el.dataset.price);
+          total += qty * price;
+        });
+        document.getElementById('total').textContent = 'Total : ' + total.toFixed(2).replace('.', ',') + ' €';
+      });
+    });
+  </script>
+</body>
+</html>
