@@ -13,6 +13,9 @@
 </head>
 <body>
   <h1>Historique des commandes</h1>
+  <div style="text-align:center; margin-bottom: 20px;">
+    <input type="text" id="search" placeholder="Recherche par nom, remarque, article..." style="width:80%; padding:10px; font-size:16px;">
+  </div>
   <div id="historique"></div>
   <a class="back" href="index.html">← Retour à la carte</a>
   <script>
@@ -26,6 +29,7 @@
         div.className = "entry";
         const articles = cmd.articles.map(a => a.article + " x" + a.quantite).join(", ");
         div.innerHTML = `<strong>${cmd.total} €</strong><br>
+          <em>Date:</em> ${cmd.datetime}<br>
           <em>Serveur:</em> ${cmd.serveur || ""} <br>
           <em>Référence:</em> ${cmd.reference || ""} <br>
           <em>Remarques:</em> ${cmd.remarque || ""} <br>
@@ -33,6 +37,15 @@
         container.appendChild(div);
       });
     }
+
+    document.getElementById("search").addEventListener("input", function() {
+      const searchTerm = this.value.toLowerCase();
+      const entries = document.querySelectorAll(".entry");
+      entries.forEach(entry => {
+        const text = entry.innerText.toLowerCase();
+        entry.style.display = text.includes(searchTerm) ? "block" : "none";
+      });
+    });
   </script>
 </body>
 </html>
