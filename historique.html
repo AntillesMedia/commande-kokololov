@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Historique des commandes</title>
+  <style>
+    body { font-family: Arial; padding: 20px; font-size: 18px; background: #fff; }
+    h1 { text-align: center; }
+    .entry { margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+    .back { display: block; margin: 30px auto; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Historique des commandes</h1>
+  <div id="historique"></div>
+  <a class="back" href="index.html">← Retour à la carte</a>
+  <script>
+    const list = JSON.parse(localStorage.getItem("historique") || "[]");
+    const container = document.getElementById("historique");
+    if (list.length === 0) {
+      container.innerHTML = "<p>Aucune commande enregistrée.</p>";
+    } else {
+      list.forEach(cmd => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        const articles = cmd.articles.map(a => a.article + " x" + a.quantite).join(", ");
+        div.innerHTML = `<strong>${cmd.total} €</strong><br>
+          <em>Serveur:</em> ${cmd.serveur || ""} <br>
+          <em>Référence:</em> ${cmd.reference || ""} <br>
+          <em>Remarques:</em> ${cmd.remarque || ""} <br>
+          <em>Détails:</em> ${articles}`;
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
