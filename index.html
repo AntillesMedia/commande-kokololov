@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,189 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KOKOLO LOV - La Carte</title>
   <style>
-    body {
-      background-color: #f4f4f4;
-      color: #222;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      font-size: 18px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .category, .item {
-      margin-bottom: 10px;
-    }
-    .item {
-      display: flex;
-      justify-content: space-between;
-    }
-    input[type="number"], input[type="text"] {
-      width: 80px;
-      font-size: 16px;
-    }
-    .note, .remise, .pourboire, .serveur, .ref {
-      margin-top: 15px;
-    }
-    .total {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #fff;
-      color: #000;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      border-top: 2px solid #ccc;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #historique {
-      margin-top: 30px;
-    }
+    body { background:#fefefe; font-family:Arial,sans-serif; padding:20px; font-size:18px; }
+    h1,h2 { text-align:center; }
+    .logo { display:block; margin:0 auto 20px auto; max-width:300px; }
+    .item { display:flex; justify-content:space-between; margin:5px 0; }
+    input[type="number"] { width:60px; }
+    .input-section { margin-bottom:15px; }
+    .total { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:15px; font-size:20px; font-weight:bold; text-align:center; border-top:1px solid #ccc; }
+    #historiqueList { list-style:none; padding:0; }
   </style>
 </head>
 <body>
+  <img src="logo_kokololov_web.jpg" alt="Logo KOKOLO LOV" class="logo" />
   <h1>KOKOLO LOV - La Carte</h1>
-
-  <div class="serveur">
-    <label for="serveur">Nom du serveur :</label>
-    <input type="text" id="serveur" />
+  <div class="input-section">
+    <label>Nom du serveur :</label>
+    <input type="text" id="serveur">
   </div>
-
-  <div class="ref">
-    <label for="reference">Référence commande :</label>
-    <input type="text" id="reference" />
+  <div class="input-section">
+    <label>Référence commande :</label>
+    <input type="text" id="reference" style="margin-left:10px;">
   </div>
-
-  <div class="item"><span>Glace - 3€</span><input type="number" data-price="3" value="0" /></div>
-  <div class="item"><span>Offre spéciale : 2 glaces - 5€</span><input type="number" data-price="5" value="0" /></div>
-  <div class="item"><span>Nems (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
-  <div class="item"><span>Samoussa Légumes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
-  <div class="item"><span>Beignets de crevettes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
-  <div class="item"><span>Croustille de poulet (6 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
-  <div class="item"><span>Assiette dégustation (12 pièces) - 10€</span><input type="number" data-price="10" value="0" /></div>
-
-  <div class="remise">
-    <label for="discount">Remise (€) :</label>
-    <input type="number" id="discount" value="0" />
+  <div class="input-section">
+    <label>Remarques :</label><br>
+    <input type="text" id="remarks" style="width:100%;" placeholder="Ex : sans glaçons, double dose..." />
   </div>
-
-  <div class="pourboire">
-    <label for="tip">Pourboire (€) :</label>
-    <input type="number" id="tip" value="0" />
+  <div id="menu">
+<h2>Alcools</h2><div class="item"><span>Hennessy</span><span>100.0 € <input type="number" data-price="100.0" data-name="Hennessy" value="0" /></span></div><div class="item"><span>Johnny Walker</span><span>100.0 € <input type="number" data-price="100.0" data-name="Johnny Walker" value="0" /></span></div><div class="item"><span>JB</span><span>80.0 € <input type="number" data-price="80.0" data-name="JB" value="0" /></span></div><div class="item"><span>Gin Gordon</span><span>80.0 € <input type="number" data-price="80.0" data-name="Gin Gordon" value="0" /></span></div><div class="item"><span>Vodka Smirnoff</span><span>80.0 € <input type="number" data-price="80.0" data-name="Vodka Smirnoff" value="0" /></span></div><div class="item"><span>Rhum vieux Montebello</span><span>80.0 € <input type="number" data-price="80.0" data-name="Rhum vieux Montebello" value="0" /></span></div><h2>Cocktails</h2><div class="item"><span>Kòkòlò Lòv (Goyave, passion, romarin, rhum, vieux fraises)</span><span>15.0 € <input type="number" data-price="15.0" data-name="Kòkòlò Lòv (Goyave, passion, romarin, rhum, vieux fraises)" value="0" /></span></div><div class="item"><span>Lanmou (Passion, ananas, cannelle, rhum vieux gingembre )</span><span>15.0 € <input type="number" data-price="15.0" data-name="Lanmou (Passion, ananas, cannelle, rhum vieux gingembre )" value="0" /></span></div><div class="item"><span>1 Carreau (Passion, ananas, cannelle, gingembre)</span><span>10.0 € <input type="number" data-price="10.0" data-name="1 Carreau (Passion, ananas, cannelle, gingembre)" value="0" /></span></div><div class="item"><span>Zouk Love (Goyave, passion, romarin, fraises)</span><span>10.0 € <input type="number" data-price="10.0" data-name="Zouk Love (Goyave, passion, romarin, fraises)" value="0" /></span></div><h2>Boissons Alcoolisees</h2><div class="item"><span>Ti-Punch</span><span>6.0 € <input type="number" data-price="6.0" data-name="Ti-Punch" value="0" /></span></div><div class="item"><span>Cognac</span><span>12.0 € <input type="number" data-price="12.0" data-name="Cognac" value="0" /></span></div><div class="item"><span>Whisky (JB)</span><span>10.0 € <input type="number" data-price="10.0" data-name="Whisky (JB)" value="0" /></span></div><div class="item"><span>Vodka</span><span>10.0 € <input type="number" data-price="10.0" data-name="Vodka" value="0" /></span></div><div class="item"><span>Rhum vieux</span><span>10.0 € <input type="number" data-price="10.0" data-name="Rhum vieux" value="0" /></span></div><div class="item"><span>Gin</span><span>10.0 € <input type="number" data-price="10.0" data-name="Gin" value="0" /></span></div><h2>Boissons Energisantes</h2><div class="item"><span>Red bull</span><span>4.0 € <input type="number" data-price="4.0" data-name="Red bull" value="0" /></span></div><div class="item"><span>XL</span><span>4.0 € <input type="number" data-price="4.0" data-name="XL" value="0" /></span></div><div class="item"><span>Ginger Beer</span><span>4.0 € <input type="number" data-price="4.0" data-name="Ginger Beer" value="0" /></span></div><div class="item"><span>Schweppes</span><span>4.0 € <input type="number" data-price="4.0" data-name="Schweppes" value="0" /></span></div><h2>Sodas | Jus | Eaux | Cafe</h2><div class="item"><span>Coca</span><span>4.0 € <input type="number" data-price="4.0" data-name="Coca" value="0" /></span></div><div class="item"><span>Sprite</span><span>4.0 € <input type="number" data-price="4.0" data-name="Sprite" value="0" /></span></div><div class="item"><span>Ordinaire</span><span>4.0 € <input type="number" data-price="4.0" data-name="Ordinaire" value="0" /></span></div><div class="item"><span>Perrier</span><span>4.0 € <input type="number" data-price="4.0" data-name="Perrier" value="0" /></span></div><div class="item"><span>Capès</span><span>3.0 € <input type="number" data-price="3.0" data-name="Capès" value="0" /></span></div><div class="item"><span>Orange</span><span>3.0 € <input type="number" data-price="3.0" data-name="Orange" value="0" /></span></div><div class="item"><span>Goyave</span><span>3.0 € <input type="number" data-price="3.0" data-name="Goyave" value="0" /></span></div><div class="item"><span>Passion</span><span>3.0 € <input type="number" data-price="3.0" data-name="Passion" value="0" /></span></div><div class="item"><span>Expresso ou café allongé</span><span>3.0 € <input type="number" data-price="3.0" data-name="Expresso ou café allongé" value="0" /></span></div><h2>Restauration /Snacks</h2><div class="item"><span>Formule Riz / Poulet + glace 15 €</span><span>15.0 € <input type="number" data-price="15.0" data-name="Formule Riz / Poulet + glace 15 €" value="0" /></span></div><div class="item"><span>Formule Riz / Poisson + glace 15 €</span><span>15.0 € <input type="number" data-price="15.0" data-name="Formule Riz / Poisson + glace 15 €" value="0" /></span></div><div class="item"><span>Box Poulet (seul)</span><span>13.0 € <input type="number" data-price="13.0" data-name="Box Poulet (seul)" value="0" /></span></div><div class="item"><span>Box poisson (seul)</span><span>13.0 € <input type="number" data-price="13.0" data-name="Box poisson (seul)" value="0" /></span></div><div class="item"><span>Nems (5 pièces)</span><span>5.0 € <input type="number" data-price="5.0" data-name="Nems (5 pièces)" value="0" /></span></div><div class="item"><span>Samoussa Légumes (5 pièces)</span><span>5.0 € <input type="number" data-price="5.0" data-name="Samoussa Légumes (5 pièces)" value="0" /></span></div><div class="item"><span>Beignets de crevettes (5 pièces)</span><span>5.0 € <input type="number" data-price="5.0" data-name="Beignets de crevettes (5 pièces)" value="0" /></span></div><div class="item"><span>Wings (6 pièces)</span><span>5.0 € <input type="number" data-price="5.0" data-name="Wings (6 pièces)" value="0" /></span></div><div class="item"><span>Assiette dégustation 12 pièces (4 nems – 3 samoussas – 2 crevettes – 3 wings) 10 €</span><span>10.0 € <input type="number" data-price="10.0" data-name="Assiette dégustation 12 pièces (4 nems – 3 samoussas – 2 crevettes – 3 wings) 10 €" value="0" /></span></div><h2>Glaces</h2><div class="item"><span>Coco</span><span>3.0 € <input type="number" data-price="3.0" data-name="Coco" value="0" /></span></div><div class="item"><span>Maracudja</span><span>3.0 € <input type="number" data-price="3.0" data-name="Maracudja" value="0" /></span></div><div class="item"><span>Chocolat Cacahuète</span><span>3.0 € <input type="number" data-price="3.0" data-name="Chocolat Cacahuète" value="0" /></span></div><div class="item"><span>Lot de 2 glaces</span><span>5.0 € <input type="number" data-price="5.0" data-name="Lot de 2 glaces" value="0" /></span></div>
   </div>
-
-  <div class="note">
-    <label for="remarks">Remarques :</label><br>
-    <input type="text" id="remarks" placeholder="Ajoutez une remarque" style="width: 100%;" />
-  </div>
-
-  <button onclick="validateOrder()">Valider</button>
+  <button onclick="valider()">Valider</button>
   <button onclick="resetForm()">Annuler</button>
-
   <div class="total" id="total">Total : 0 €</div>
-
-  <div id="historique">
-    <h2>Historique local des commandes</h2>
-    <ul id="historiqueList"></ul>
-  </div>
-
+  <h2>Historique des commandes</h2>
+  <ul id="historiqueList"></ul>
   <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycby5qt3Y1ht_ZBSXbhcrHPFfKOk41x69xEn5A3BVhQJqCcroEC1v1-7F505ZEUlmG5eLEw/exec";
+
     function updateTotal() {
       let total = 0;
-      document.querySelectorAll('input[type="number"][data-price]').forEach(el => {
-        const qty = parseInt(el.value) || 0;
-        const price = parseFloat(el.dataset.price);
-        total += qty * price;
+      document.querySelectorAll('[data-price]').forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        total += qty * parseFloat(input.dataset.price);
       });
-      const discount = parseFloat(document.getElementById('discount').value) || 0;
-      const tip = parseFloat(document.getElementById('tip').value) || 0;
-      total = total - discount + tip;
-      document.getElementById('total').textContent = 'Total : ' + total.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('total').innerText = "Total : " + total.toFixed(2).replace('.', ',') + " €";
       return total.toFixed(2);
     }
 
     function resetForm() {
-      document.querySelectorAll('input[type="number"]').forEach(input => {
-        if (!input.closest('.serveur')) input.value = 0;
-      });
-      document.getElementById('discount').value = 0;
-      document.getElementById('tip').value = 0;
+      document.querySelectorAll('[data-price]').forEach(input => input.value = 0);
       document.getElementById('reference').value = '';
       document.getElementById('remarks').value = '';
       updateTotal();
     }
 
-    function validateOrder() {
+    function valider() {
       const serveur = document.getElementById('serveur').value;
       const reference = document.getElementById('reference').value;
-      const remise = document.getElementById('discount').value;
-      const pourboire = document.getElementById('tip').value;
-      const remarques = document.getElementById('remarks').value;
+      const remarque = document.getElementById('remarks').value;
       const total = updateTotal();
       const articles = [];
 
-      document.querySelectorAll('input[type="number"][data-price]').forEach(el => {
-        const qty = parseInt(el.value);
+      document.querySelectorAll('[data-price]').forEach(input => {
+        const qty = parseInt(input.value);
         if (qty > 0) {
-          const label = el.parentNode.querySelector('span').innerText;
-          articles.push(`${label} x${qty}`);
+          const name = input.dataset.name;
+          articles.push({ article: name, quantite: qty });
         }
       });
 
-      const payload = {
-        serveur: serveur,
-        reference: reference,
-        total: total,
-        pourboire: pourboire,
-        remise: remise,
-        remarques: remarques,
-        articles: articles.join(', ')
-      };
-
-      // Envoi vers Google Sheets
-      fetch("https://script.google.com/macros/s/AKfycby5qt3Y1ht_ZBSXbhcrHPFfKOk41x69xEn5A3BVhQJqCcroEC1v1-7F505ZEUlmG5eLEw/exec", {
-        method: "POST",
-        body: JSON.stringify(payload)
-      }).then(response => {
-        alert("Commande envoyée !");
-        saveToLocal(payload);
-        resetForm();
-      }).catch(error => {
-        alert("Erreur d'envoi !");
-        console.error(error);
-      });
-    }
-
-    function saveToLocal(payload) {
-      const list = JSON.parse(localStorage.getItem('historique') || "[]");
-      list.push({ ...payload, date: new Date().toLocaleString() });
-      localStorage.setItem('historique', JSON.stringify(list));
+      const historique = JSON.parse(localStorage.getItem("historique") || "[]");
+      historique.unshift({ total, serveur, remarque, articles });
+      localStorage.setItem("historique", JSON.stringify(historique));
       showHistorique();
+
+      const payload = new FormData();
+      payload.append("serveur", serveur);
+      payload.append("reference", reference);
+      payload.append("remarque", remarque);
+      payload.append("total", total);
+      payload.append("articles", articles.map(a => a.article + " x" + a.quantite).join(", "));
+
+      fetch(scriptURL, { method: "POST", body: payload })
+        .then(response => {
+          if (response.ok) {
+            alert("Commande envoyée et enregistrée !");
+          } else {
+            alert("Erreur lors de l'envoi vers Google Sheets.");
+          }
+        })
+        .catch(error => {
+          alert("Erreur réseau ou mauvaise URL du script Google Sheets.");
+        });
+
+      resetForm();
     }
 
     function showHistorique() {
-      const list = JSON.parse(localStorage.getItem('historique') || "[]");
-      const container = document.getElementById('historiqueList');
-      container.innerHTML = "";
+      const list = JSON.parse(localStorage.getItem("historique") || "[]");
+      const ul = document.getElementById("historiqueList");
+      ul.innerHTML = "";
       list.forEach(cmd => {
-        const li = document.createElement('li');
-        li.textContent = `[${cmd.date}] ${cmd.serveur} - Ref: ${cmd.reference} - Total: ${cmd.total} € - ${cmd.articles}`;
-        container.appendChild(li);
+        let li = document.createElement("li");
+        const details = cmd.articles.map(a => a.article + " x" + a.quantite).join(", ");
+        li.innerText = `${cmd.total} € : ${details} — Serveur : ${cmd.serveur || "?"}${cmd.remarque ? " — Remarque : " + cmd.remarque : ""}`;
+        ul.appendChild(li);
       });
     }
 
-    document.querySelectorAll('input').forEach(input => {
-      input.addEventListener('input', updateTotal);
-    });
-
-    showHistorique();
+    document.querySelectorAll('input').forEach(input => input.addEventListener('input', updateTotal));
+    window.onload = showHistorique;
   </script>
 </body>
 </html>
