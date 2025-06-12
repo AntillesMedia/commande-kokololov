@@ -1,2 +1,194 @@
+
 <!DOCTYPE html>
-<html><head><meta charset='UTF-8'></head><body><p>Web app fonctionnelle KOKOLO LOV.</p></body></html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KOKOLO LOV - La Carte</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #222;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      font-size: 18px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .category, .item {
+      margin-bottom: 10px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+    }
+    input[type="number"], input[type="text"] {
+      width: 80px;
+      font-size: 16px;
+    }
+    .note, .remise, .pourboire, .serveur, .ref {
+      margin-top: 15px;
+    }
+    .total {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      color: #000;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      border-top: 2px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #historique {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>KOKOLO LOV - La Carte</h1>
+
+  <div class="serveur">
+    <label for="serveur">Nom du serveur :</label>
+    <input type="text" id="serveur" />
+  </div>
+
+  <div class="ref">
+    <label for="reference">Référence commande :</label>
+    <input type="text" id="reference" />
+  </div>
+
+  <div class="item"><span>Glace - 3€</span><input type="number" data-price="3" value="0" /></div>
+  <div class="item"><span>Offre spéciale : 2 glaces - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div class="item"><span>Nems (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div class="item"><span>Samoussa Légumes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div class="item"><span>Beignets de crevettes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div class="item"><span>Croustille de poulet (6 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div class="item"><span>Assiette dégustation (12 pièces) - 10€</span><input type="number" data-price="10" value="0" /></div>
+
+  <div class="remise">
+    <label for="discount">Remise (€) :</label>
+    <input type="number" id="discount" value="0" />
+  </div>
+
+  <div class="pourboire">
+    <label for="tip">Pourboire (€) :</label>
+    <input type="number" id="tip" value="0" />
+  </div>
+
+  <div class="note">
+    <label for="remarks">Remarques :</label><br>
+    <input type="text" id="remarks" placeholder="Ajoutez une remarque" style="width: 100%;" />
+  </div>
+
+  <button onclick="validateOrder()">Valider</button>
+  <button onclick="resetForm()">Annuler</button>
+
+  <div class="total" id="total">Total : 0 €</div>
+
+  <div id="historique">
+    <h2>Historique local des commandes</h2>
+    <ul id="historiqueList"></ul>
+  </div>
+
+  <script>
+    function updateTotal() {
+      let total = 0;
+      document.querySelectorAll('input[type="number"][data-price]').forEach(el => {
+        const qty = parseInt(el.value) || 0;
+        const price = parseFloat(el.dataset.price);
+        total += qty * price;
+      });
+      const discount = parseFloat(document.getElementById('discount').value) || 0;
+      const tip = parseFloat(document.getElementById('tip').value) || 0;
+      total = total - discount + tip;
+      document.getElementById('total').textContent = 'Total : ' + total.toFixed(2).replace('.', ',') + ' €';
+      return total.toFixed(2);
+    }
+
+    function resetForm() {
+      document.querySelectorAll('input[type="number"]').forEach(input => {
+        if (!input.closest('.serveur')) input.value = 0;
+      });
+      document.getElementById('discount').value = 0;
+      document.getElementById('tip').value = 0;
+      document.getElementById('reference').value = '';
+      document.getElementById('remarks').value = '';
+      updateTotal();
+    }
+
+    function validateOrder() {
+      const serveur = document.getElementById('serveur').value;
+      const reference = document.getElementById('reference').value;
+      const remise = document.getElementById('discount').value;
+      const pourboire = document.getElementById('tip').value;
+      const remarques = document.getElementById('remarks').value;
+      const total = updateTotal();
+      const articles = [];
+
+      document.querySelectorAll('input[type="number"][data-price]').forEach(el => {
+        const qty = parseInt(el.value);
+        if (qty > 0) {
+          const label = el.parentNode.querySelector('span').innerText;
+          articles.push(`${label} x${qty}`);
+        }
+      });
+
+      const payload = {
+        serveur: serveur,
+        reference: reference,
+        total: total,
+        pourboire: pourboire,
+        remise: remise,
+        remarques: remarques,
+        articles: articles.join(', ')
+      };
+
+      // Envoi vers Google Sheets
+      fetch("https://script.google.com/macros/s/AKfycby5qt3Y1ht_ZBSXbhcrHPFfKOk41x69xEn5A3BVhQJqCcroEC1v1-7F505ZEUlmG5eLEw/exec", {
+        method: "POST",
+        body: JSON.stringify(payload)
+      }).then(response => {
+        alert("Commande envoyée !");
+        saveToLocal(payload);
+        resetForm();
+      }).catch(error => {
+        alert("Erreur d'envoi !");
+        console.error(error);
+      });
+    }
+
+    function saveToLocal(payload) {
+      const list = JSON.parse(localStorage.getItem('historique') || "[]");
+      list.push({ ...payload, date: new Date().toLocaleString() });
+      localStorage.setItem('historique', JSON.stringify(list));
+      showHistorique();
+    }
+
+    function showHistorique() {
+      const list = JSON.parse(localStorage.getItem('historique') || "[]");
+      const container = document.getElementById('historiqueList');
+      container.innerHTML = "";
+      list.forEach(cmd => {
+        const li = document.createElement('li');
+        li.textContent = `[${cmd.date}] ${cmd.serveur} - Ref: ${cmd.reference} - Total: ${cmd.total} € - ${cmd.articles}`;
+        container.appendChild(li);
+      });
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateTotal);
+    });
+
+    showHistorique();
+  </script>
+</body>
+</html>
