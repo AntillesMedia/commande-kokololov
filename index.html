@@ -4,162 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KOKOLO LOV - La Carte</title>
-  <style>
-    body {
-      background-color: #f4f4f4;
-      color: #222;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      font-size: 18px;
-    }
-    h1 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    h2 {
-      background-color: #ddd;
-      padding: 8px;
-      margin-top: 30px;
-      border-radius: 5px;
-    }
-    .category {
-      margin-top: 20px;
-    }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 6px 0;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 6px;
-    }
-    .item span {
-      flex: 1;
-    }
-    input[type="number"], input[type="text"] {
-      width: 80px;
-      padding: 4px;
-      font-size: 16px;
-    }
-    .note, .remise, .pourboire {
-      margin-top: 20px;
-    }
-    .total {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #fff;
-      color: #000;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      border-top: 2px solid #ccc;
-    }
-  </style>
 </head>
 <body>
   <h1>KOKOLO LOV - La Carte</h1>
-
-  <div class="category">
-    <h2>1. Champagne</h2>
-    <div class="item"><span>Veuve Clicquot - 120€</span><input type="number" data-price="120" value="0"/></div>
-    <div class="item"><span>Moët Brut - 100€</span><input type="number" data-price="100" value="0"/></div>
-    <div class="item"><span>Nicolas Feuillate Demi Sec - 90€</span><input type="number" data-price="90" value="0"/></div>
-    <div class="item"><span>Nicolas Feuillate Brut - 90€</span><input type="number" data-price="90" value="0"/></div>
-    <div class="item"><span>Martel (coupe) - 12€</span><input type="number" data-price="12" value="0"/></div>
-  </div>
-
-  <div class="category">
-    <h2>2. Alcools (Bouteilles)</h2>
-    <div class="item"><span>Hennessy - 100€</span><input type="number" data-price="100" value="0"/></div>
-    <div class="item"><span>Johnny Walker - 100€</span><input type="number" data-price="100" value="0"/></div>
-    <div class="item"><span>JB - 90€</span><input type="number" data-price="90" value="0"/></div>
-    <div class="item"><span>Gin Gordon - 90€</span><input type="number" data-price="90" value="0"/></div>
-    <div class="item"><span>Vodka Smirnoff - 90€</span><input type="number" data-price="90" value="0"/></div>
-    <div class="item"><span>Rhum vieux Montebello - 90€</span><input type="number" data-price="90" value="0"/></div>
-  </div>
-
-  <div class="category">
-    <h2>3. Cocktails</h2>
-    <div class="item"><span>Kòkòlò Lòv (alcool) - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>1 Carreau (alcool) - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>Lanmou (alcool) - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>Zouk Love (alcool) - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>Kòkòlò Lòv (sans alcool) - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>1 Carreau (sans alcool) - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>Lanmou (sans alcool) - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>Zouk Love (sans alcool) - 10€</span><input type="number" data-price="10" value="0"/></div>
-  </div>
-
-  <div class="category">
-    <h2>4. Boissons Alcoolisées (Verres)</h2>
-    <div class="item"><span>Ti-Punch - 6€</span><input type="number" data-price="6" value="0"/></div>
-    <div class="item"><span>Cognac (Hennessy) - 12€</span><input type="number" data-price="12" value="0"/></div>
-    <div class="item"><span>Whisky (JB) - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>Vodka - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>Rhum vieux - 10€</span><input type="number" data-price="10" value="0"/></div>
-    <div class="item"><span>Gin - 10€</span><input type="number" data-price="10" value="0"/></div>
-  </div>
-
-  <div class="category">
-    <h2>5. Sodas / Jus / Eaux / Café</h2>
-    <div class="item"><span>Red Bull / XL / Ginger Beer / Schweppes - 5€</span><input type="number" data-price="5" value="0"/></div>
-    <div class="item"><span>Coca / Sprite / Ordinaire - 4€</span><input type="number" data-price="4" value="0"/></div>
-    <div class="item"><span>Perrier - 4€</span><input type="number" data-price="4" value="0"/></div>
-    <div class="item"><span>Capès - 3€</span><input type="number" data-price="3" value="0"/></div>
-    <div class="item"><span>Jus (Orange / Goyave / Passion) - 3€</span><input type="number" data-price="3" value="0"/></div>
-    <div class="item"><span>Expresso ou Allongé - 3€</span><input type="number" data-price="3" value="0"/></div>
-  </div>
-
-  <div class="category">
-    <h2>6. Restauration</h2>
-    <div class="item"><span>Glace - 3€</span><input type="number" data-price="3" value="0"/></div>
-    <div class="item"><span>Nems (5 pièces) - 7€</span><input type="number" data-price="7" value="0"/></div>
-    <div class="item"><span>Samoussa Légumes (5 pièces) - 7€</span><input type="number" data-price="7" value="0"/></div>
-    <div class="item"><span>Beignets de crevettes (5 pièces) - 8€</span><input type="number" data-price="8" value="0"/></div>
-    <div class="item"><span>Croustille de poulet (6 pièces) - 8€</span><input type="number" data-price="8" value="0"/></div>
-    <div class="item"><span>Assiette dégustation (12 pièces) - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>Riz / Poulet + glace - 15€</span><input type="number" data-price="15" value="0"/></div>
-    <div class="item"><span>Riz / Poisson + glace - 15€</span><input type="number" data-price="15" value="0"/></div>
-  </div>
-
-  <div class="remise">
-    <label for="discount">Remise (€) :</label>
-    <input type="number" id="discount" value="0" />
-  </div>
-
-  <div class="pourboire">
-    <label for="tip">Pourboire (€) :</label>
-    <input type="number" id="tip" value="0" />
-  </div>
-
-  <div class="note">
-    <label for="remarks">Remarques :</label><br>
-    <input type="text" id="remarks" placeholder="Ajoutez une remarque" style="width: 100%;" />
-  </div>
-
-  <div class="total" id="total">Total : 0 €</div>
-
-  <script>
-    function updateTotal() {
-      let total = 0;
-      document.querySelectorAll('input[type="number"][data-price]').forEach(el => {
-        const qty = parseInt(el.value) || 0;
-        const price = parseFloat(el.dataset.price);
-        total += qty * price;
-      });
-      const discount = parseFloat(document.getElementById('discount').value) || 0;
-      const tip = parseFloat(document.getElementById('tip').value) || 0;
-      total = total - discount + tip;
-      document.getElementById('total').textContent = 'Total : ' + total.toFixed(2).replace('.', ',') + ' €';
-    }
-
-    document.querySelectorAll('input[type="number"]').forEach(input => {
-      input.addEventListener('input', updateTotal);
-    });
-  </script>
+  <!-- Exemple modifié pour une catégorie -->
+  <h2>6. Restauration</h2>
+  <div><span>Glace - 3€</span><input type="number" data-price="3" value="0" /></div>
+  <div><span>Offre spéciale : 2 glaces - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div><span>Nems (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div><span>Samoussa Légumes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div><span>Beignets de crevettes (5 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div><span>Croustille de poulet (6 pièces) - 5€</span><input type="number" data-price="5" value="0" /></div>
+  <div><span>Assiette dégustation (12 pièces) - 10€</span><input type="number" data-price="10" value="0" /></div>
+  <h2>Champagne</h2>
+  <div><span>Nicolas Feuillate Demi Sec - 80€</span><input type="number" data-price="80" value="0" /></div>
+  <div><span>Nicolas Feuillate Brut - 80€</span><input type="number" data-price="80" value="0" /></div>
+  <h2>Alcools (Bouteilles)</h2>
+  <div><span>JB - 80€</span><input type="number" data-price="80" value="0" /></div>
+  <div><span>Gin Gordon - 80€</span><input type="number" data-price="80" value="0" /></div>
+  <div><span>Vodka Smirnoff - 80€</span><input type="number" data-price="80" value="0" /></div>
+  <div><span>Rhum vieux Montebello - 80€</span><input type="number" data-price="80" value="0" /></div>
 </body>
 </html>
